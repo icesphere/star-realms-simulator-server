@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="star-realms-simulator:war exploded">
+    <output-path>$PROJECT_DIR$/target/star-realms-simulator-server</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="star-realms-simulator/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="star-realms-simulator" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.primefaces:primefaces:5.3" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
+          <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.12" />
+          <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.12" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.4" />
+          <element id="library" level="project" name="lib" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

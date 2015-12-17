@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="star-realms-simulator:war">
+    <output-path>$PROJECT_DIR$/../jetty9/webapps</output-path>
+    <root id="archive" name="star-realms-simulator-server.war">
+      <element id="artifact" artifact-name="star-realms-simulator:war exploded" />
+    </root>
+  </artifact>
+</component>
