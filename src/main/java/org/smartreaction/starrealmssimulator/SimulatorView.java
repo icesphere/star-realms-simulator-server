@@ -53,6 +53,22 @@ public class SimulatorView implements Serializable {
     private void addGameStateErrors() {
         errorMessages = new ArrayList<>();
 
+        if (gameState.turn < 0 || gameState.turn > 100) {
+            errorMessages.add("Invalid turn: " + gameState.turn);
+        }
+
+        if (gameState.authority <= 0 || gameState.authority > 500) {
+            errorMessages.add("Invalid authority: " + gameState.authority);
+        }
+
+        if (gameState.opponentAuthority <= 0 || gameState.opponentAuthority > 500) {
+            errorMessages.add("Invalid Opponent authority: " + gameState.opponentAuthority);
+        }
+
+        if (timesToSimulate < 100 || timesToSimulate > 10000) {
+            errorMessages.add("Invalid number of times to simulate: " + timesToSimulate);
+        }
+
         addErrorMessagesForCardNames(gameState.tradeRow, "Trade Row");
 
         addErrorMessagesForCardNames(gameState.hand, "Hand");
@@ -71,7 +87,19 @@ public class SimulatorView implements Serializable {
         if (StringUtils.isNotEmpty(cardNames)) {
             String[] cardNamesArray = cardNames.split(",");
             for (String cardName : cardNamesArray) {
-                Card card = gameService.getCardFromName(cardName);
+                String cardNameWithoutMultiplier = cardName;
+                if (cardName.contains("*")) {
+                    cardNameWithoutMultiplier = cardName.substring(0, cardName.indexOf("*"));
+                    try {
+                        int multiplier = Integer.parseInt(cardName.substring(cardName.indexOf("*") + 1).trim());
+                        if (multiplier < 0 || multiplier > 100) {
+                            errorMessages.add(cardNamesDescription + " has invalid card multiplier: " + cardName);
+                        }
+                    } catch (Exception e) {
+                        errorMessages.add(cardNamesDescription + " has invalid card multiplier: " + cardName);
+                    }
+                }
+                Card card = gameService.getCardFromName(cardNameWithoutMultiplier);
                 if (card == null) {
                     errorMessages.add(cardNamesDescription + " has invalid card name: " + cardName);
                 }
