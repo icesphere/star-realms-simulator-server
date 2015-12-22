@@ -1,6 +1,7 @@
 package org.smartreaction.starrealmssimulator;
 
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.model.chart.*;
 import starrealmssimulator.model.Card;
 import starrealmssimulator.model.Gambit;
 import starrealmssimulator.model.GameState;
@@ -12,6 +13,7 @@ import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @ManagedBean
 @ViewScoped
@@ -19,7 +21,7 @@ public class SimulatorView implements Serializable {
 
     private GameState gameState = new GameState();
 
-    private int timesToSimulate = 1000;
+    private int timesToSimulate = 2000;
 
     private SimulationResults results;
 
@@ -33,6 +35,8 @@ public class SimulatorView implements Serializable {
 
     private GameService gameService = new GameService();
 
+    private LineChartModel authorityChart;
+
     public void startSimulation() {
         showResults = true;
         loadingResults = true;
@@ -45,6 +49,52 @@ public class SimulatorView implements Serializable {
 
         if (!showErrors) {
             results = gameService.simulateGameToEnd(gameState, timesToSimulate);
+            authorityChart = new LineChartModel();
+            authorityChart.setTitle("Average Authority By # Hands Played");
+            authorityChart.setLegendPosition("e");
+
+            Axis yAxis = authorityChart.getAxis(AxisType.Y);
+            yAxis.setLabel("Authority");
+            yAxis.setMin(0);
+
+            Axis xAxis = authorityChart.getAxis(AxisType.X);
+            xAxis.setLabel("Hands");
+            xAxis.setMin(0);
+
+            ChartSeries playerAuthority = new ChartSeries();
+            playerAuthority.setLabel("Player");
+
+            int numZerosFound = 0;
+            Map<Integer, Integer> playerAverageAuthorityByTurn = results.getPlayerAverageAuthorityByTurn();
+            for (Integer turn : playerAverageAuthorityByTurn.keySet()) {
+                Integer authority = playerAverageAuthorityByTurn.get(turn);
+                playerAuthority.set(turn, authority);
+                if (authority <= 0) {
+                    numZerosFound++;
+                }
+                if (numZerosFound >= 2) {
+                    break;
+                }
+            }
+
+            ChartSeries opponentAuthority = new ChartSeries();
+            opponentAuthority.setLabel("Opponent");
+
+            numZerosFound = 0;
+            Map<Integer, Integer> opponentAverageAuthorityByTurn = results.getOpponentAverageAuthorityByTurn();
+            for (Integer turn : opponentAverageAuthorityByTurn.keySet()) {
+                Integer authority = opponentAverageAuthorityByTurn.get(turn);
+                opponentAuthority.set(turn, authority);
+                if (authority <= 0) {
+                    numZerosFound++;
+                }
+                if (numZerosFound >= 2) {
+                    break;
+                }
+            }
+
+            authorityChart.addSeries(playerAuthority);
+            authorityChart.addSeries(opponentAuthority);
         }
 
         loadingResults = false;
@@ -173,5 +223,9 @@ public class SimulatorView implements Serializable {
 
     public void setErrorMessages(List<String> errorMessages) {
         this.errorMessages = errorMessages;
+    }
+
+    public LineChartModel getAuthorityChart() {
+        return authorityChart;
     }
 }

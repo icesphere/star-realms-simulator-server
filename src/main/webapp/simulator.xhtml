@@ -58,39 +58,39 @@
 
                         <h:panelGrid styleClass="bigTopMargin" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
 
-                            <h:outputLabel value="Turn: "/>
-                            <h:inputText style="width: 40px;" value="#{simulatorView.gameState.turn}" pt:type="number"/>
+                            <p:outputLabel value="Turn: "/>
+                            <p:inputText style="width: 40px;" value="#{simulatorView.gameState.turn}" pt:type="number"/>
 
-                            <h:outputLabel value="Is it your turn? "/>
-                            <h:selectOneRadio value="#{simulatorView.gameState.currentPlayer}" styleClass="radioSpacing">
+                            <p:outputLabel value="Is it your turn? "/>
+                            <p:selectOneRadio value="#{simulatorView.gameState.currentPlayer}" styleClass="radioSpacing">
                                 <f:selectItem itemLabel="Yes" itemValue="Y"/>
                                 <f:selectItem itemLabel="No" itemValue="N"/>
                                 <f:selectItem itemLabel="Random" itemValue="R"/>
-                            </h:selectOneRadio>
+                            </p:selectOneRadio>
 
-                            <h:outputLabel value="Include Year One Promos? "/>
-                            <h:selectOneRadio value="#{simulatorView.gameState.includeYearOnePromos}" styleClass="radioSpacing">
+                            <p:outputLabel value="Include Year One Promos? "/>
+                            <p:selectOneRadio value="#{simulatorView.gameState.includeYearOnePromos}" styleClass="radioSpacing">
                                 <f:selectItem itemLabel="Yes" itemValue="Y"/>
                                 <f:selectItem itemLabel="No" itemValue="N"/>
                                 <f:selectItem itemLabel="Random" itemValue="R"/>
-                            </h:selectOneRadio>
+                            </p:selectOneRadio>
 
-                            <h:outputLabel value="Include Bases and Battleships? "/>
-                            <h:selectOneRadio value="#{simulatorView.gameState.includeBasesAndBattleships}" styleClass="radioSpacing">
+                            <p:outputLabel value="Include Bases and Battleships? "/>
+                            <p:selectOneRadio value="#{simulatorView.gameState.includeBasesAndBattleships}" styleClass="radioSpacing">
                                 <f:selectItem itemLabel="Yes" itemValue="Y"/>
                                 <f:selectItem itemLabel="No" itemValue="N"/>
                                 <f:selectItem itemLabel="Random" itemValue="R"/>
-                            </h:selectOneRadio>
+                            </p:selectOneRadio>
 
-                            <h:outputLabel value="Include Gambits? "/>
-                            <h:selectOneRadio value="#{simulatorView.gameState.includeGambits}" styleClass="radioSpacing">
+                            <p:outputLabel value="Include Gambits? "/>
+                            <p:selectOneRadio value="#{simulatorView.gameState.includeGambits}" styleClass="radioSpacing">
                                 <f:selectItem itemLabel="Yes" itemValue="Y"/>
                                 <f:selectItem itemLabel="No" itemValue="N"/>
                                 <f:selectItem itemLabel="Random" itemValue="R"/>
-                            </h:selectOneRadio>
+                            </p:selectOneRadio>
 
-                            <h:outputLabel value="Trade row: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.tradeRow}"/>
+                            <p:outputLabel value="Trade row: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.tradeRow}"/>
 
                         </h:panelGrid>
 
@@ -101,8 +101,8 @@
 
                         <h:panelGrid styleClass="bigTopMargin" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
 
-                            <h:outputLabel value="Bot Name: "/>
-                            <h:selectOneMenu value="#{simulatorView.gameState.bot}">
+                            <p:outputLabel value="Bot Name: "/>
+                            <p:selectOneMenu value="#{simulatorView.gameState.bot}">
                                 <f:selectItem itemLabel="Attack Bot" itemValue="AttackBot"/>
                                 <f:selectItem itemLabel="Defense Bot" itemValue="DefenseAndBaseBot"/>
                                 <f:selectItem itemLabel="End Game Bot" itemValue="EndGameBot"/>
@@ -111,25 +111,25 @@
                                 <f:selectItem itemLabel="Random Bot" itemValue="RandomBot"/>
                                 <f:selectItem itemLabel="Tortoise Bot" itemValue="TortoiseBot"/>
                                 <f:selectItem itemLabel="Velocity Bot" itemValue="VelocityBot"/>
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
 
-                            <h:outputLabel value="Authority: "/>
-                            <h:inputText style="width: 40px;" value="#{simulatorView.gameState.authority}" pt:type="number"/>
+                            <p:outputLabel value="Authority: "/>
+                            <p:inputText style="width: 40px;" value="#{simulatorView.gameState.authority}" pt:type="number"/>
 
-                            <h:outputLabel value="Hand: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.hand}"/>
+                            <p:outputLabel value="Hand: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.hand}"/>
 
-                            <h:outputLabel value="Deck: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.deck}"/>
+                            <p:outputLabel value="Deck: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.deck}"/>
 
-                            <h:outputLabel value="Discard: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.discard}"/>
+                            <p:outputLabel value="Discard: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.discard}"/>
 
-                            <h:outputLabel value="Bases in Play: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.basesInPlay}"/>
+                            <p:outputLabel value="Bases in Play: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.basesInPlay}"/>
 
-                            <h:outputLabel value="Gambits: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.gambits}"/>
+                            <p:outputLabel value="Gambits: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.gambits}"/>
 
                         </h:panelGrid>
 
@@ -140,8 +140,8 @@
 
                         <h:panelGrid styleClass="bigTopMargin" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
 
-                            <h:outputLabel value="Bot Name: "/>
-                            <h:selectOneMenu value="#{simulatorView.gameState.opponentBot}">
+                            <p:outputLabel value="Bot Name: "/>
+                            <p:selectOneMenu value="#{simulatorView.gameState.opponentBot}">
                                 <f:selectItem itemLabel="Attack Bot" itemValue="AttackBot"/>
                                 <f:selectItem itemLabel="Defense Bot" itemValue="DefenseAndBaseBot"/>
                                 <f:selectItem itemLabel="End Game Bot" itemValue="EndGameBot"/>
@@ -150,22 +150,22 @@
                                 <f:selectItem itemLabel="Random Bot" itemValue="RandomBot"/>
                                 <f:selectItem itemLabel="Tortoise Bot" itemValue="TortoiseBot"/>
                                 <f:selectItem itemLabel="Velocity Bot" itemValue="VelocityBot"/>
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
 
-                            <h:outputLabel value="Authority: "/>
-                            <h:inputText style="width: 40px;" value="#{simulatorView.gameState.opponentAuthority}" pt:type="number"/>
+                            <p:outputLabel value="Authority: "/>
+                            <p:inputText style="width: 40px;" value="#{simulatorView.gameState.opponentAuthority}" pt:type="number"/>
 
-                            <h:outputLabel value="Hand and Deck: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentHandAndDeck}"/>
+                            <p:outputLabel value="Hand and Deck: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentHandAndDeck}"/>
 
-                            <h:outputLabel value="Discard: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentDiscard}"/>
+                            <p:outputLabel value="Discard: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentDiscard}"/>
 
-                            <h:outputLabel value="Bases in Play: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentBasesInPlay}"/>
+                            <p:outputLabel value="Bases in Play: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentBasesInPlay}"/>
 
-                            <h:outputLabel value="Gambits: "/>
-                            <h:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentGambits}"/>
+                            <p:outputLabel value="Gambits: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentGambits}"/>
 
                         </h:panelGrid>
 
@@ -176,11 +176,11 @@
                         <h:panelGrid columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
 
                             <h:outputText value="Number of times to simulate: "/>
-                            <h:selectOneMenu value="#{simulatorView.timesToSimulate}">
-                                <f:selectItem itemLabel="100" itemValue="100"/>
-                                <f:selectItem itemLabel="1,000" itemValue="1000"/>
+                            <p:selectOneMenu value="#{simulatorView.timesToSimulate}">
+                                <f:selectItem itemLabel="500" itemValue="500"/>
+                                <f:selectItem itemLabel="2,000" itemValue="2000"/>
                                 <f:selectItem itemLabel="10,000" itemValue="10000"/>
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
 
                         </h:panelGrid>
 
@@ -219,7 +219,7 @@
 
                                 <h:panelGrid styleClass="bigTopMargin" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
 
-                                    <h:outputLabel value="Win Percentage: "/>
+                                    <p:outputLabel value="Win Percentage: "/>
                                     <h:panelGroup>
                                         <h:outputText value="#{simulatorView.results.winPercentage}">
                                             <f:convertNumber pattern="##.00"/>
@@ -227,12 +227,16 @@
                                         <h:outputText value="%"/>
                                     </h:panelGroup>
 
-                                    <h:outputLabel value="Avg # Turns: "/>
+                                    <p:outputLabel value="Avg # Turns: "/>
                                     <h:outputText value="#{simulatorView.results.averageNumTurns}">
                                         <f:convertNumber pattern="##.00"/>
                                     </h:outputText>
 
                                 </h:panelGrid>
+
+                                <div style="padding-top: 20px;">
+                                    <p:chart type="line" model="#{simulatorView.authorityChart}"/>
+                                </div>
 
                             </h:panelGroup>
 
