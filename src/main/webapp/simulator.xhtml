@@ -30,7 +30,9 @@
                         <br/><br/>
                         If the trade row is left blank it will randomly draw 5 cards for the trade row.
                         <br/><br/>
-                        If all cards for a player are left blank it will use starter cards and randomly draw a hand from the starter cards.
+                        If hand, deck, and discard for a player are left blank it will use starter cards and randomly draw a hand from the starter cards.
+                        <br/><br/>
+                        If a player's hand is left blank, but there are cards in the deck or discard, then it will randomly draw a hand.
                         <br/><br/>
                         Bot descriptions:
                         <br/>
@@ -59,7 +61,7 @@
                         <h:panelGrid styleClass="bigTopMargin" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
 
                             <p:outputLabel value="Turn: "/>
-                            <p:inputText style="width: 40px;" value="#{simulatorView.gameState.turn}" pt:type="number"/>
+                            <p:inputText style="width: 50px;" value="#{simulatorView.gameState.turn}" pt:type="number"/>
 
                             <p:outputLabel value="Is it your turn? "/>
                             <p:selectOneRadio value="#{simulatorView.gameState.currentPlayer}" styleClass="radioSpacing">
@@ -114,7 +116,7 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Authority: "/>
-                            <p:inputText style="width: 40px;" value="#{simulatorView.gameState.authority}" pt:type="number"/>
+                            <p:inputText style="width: 50px;" value="#{simulatorView.gameState.authority}" pt:type="number"/>
 
                             <p:outputLabel value="Hand: "/>
                             <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.hand}"/>
@@ -153,7 +155,7 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Authority: "/>
-                            <p:inputText style="width: 40px;" value="#{simulatorView.gameState.opponentAuthority}" pt:type="number"/>
+                            <p:inputText style="width: 50px;" value="#{simulatorView.gameState.opponentAuthority}" pt:type="number"/>
 
                             <p:outputLabel value="Hand and Deck: "/>
                             <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentHandAndDeck}"/>
