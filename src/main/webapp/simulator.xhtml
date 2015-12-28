@@ -240,6 +240,34 @@
                                     <p:chart type="line" model="#{simulatorView.authorityChart}"/>
                                 </div>
 
+                                <h:panelGroup layout="block" id="winGameLogSection" style="padding-top: 20px;" rendered="#{!empty simulatorView.results.winGameLog}">
+                                    <h:panelGroup rendered="#{!simulatorView.showWinGameLog}">
+                                        <p:commandLink value="Show Win Game Log" actionListener="#{simulatorView.setShowWinGameLog(true)}" process="@this" update="winGameLogSection"/>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{simulatorView.showWinGameLog}">
+                                        <p:commandLink value="Hide Win Game Log" actionListener="#{simulatorView.setShowWinGameLog(false)}" process="@this" update="winGameLogSection"/>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showWinGameLog}">
+                                        <h:outputText value="#{simulatorView.results.winGameLog}" escape="false"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" id="lossGameLogSection" style="padding-top: 20px;" rendered="#{!empty simulatorView.results.lossGameLog}">
+                                    <h:panelGroup rendered="#{!simulatorView.showLossGameLog}">
+                                        <p:commandLink value="Show Loss Game Log" actionListener="#{simulatorView.setShowLossGameLog(true)}" process="@this" update="lossGameLogSection"/>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{simulatorView.showLossGameLog}">
+                                        <p:commandLink value="Hide Loss Game Log" actionListener="#{simulatorView.setShowLossGameLog(false)}" process="@this" update="lossGameLogSection"/>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showLossGameLog}">
+                                        <h:outputText value="#{simulatorView.results.lossGameLog}" escape="false"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
                             </h:panelGroup>
 
                         </h:panelGroup>

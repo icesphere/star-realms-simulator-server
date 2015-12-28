@@ -37,6 +37,10 @@ public class SimulatorView implements Serializable {
 
     private LineChartModel authorityChart;
 
+    private boolean showWinGameLog;
+
+    private boolean showLossGameLog;
+
     public void startSimulation() {
         showResults = true;
         loadingResults = true;
@@ -227,5 +231,21 @@ public class SimulatorView implements Serializable {
 
     public LineChartModel getAuthorityChart() {
         return authorityChart;
+    }
+
+    public boolean isShowWinGameLog() {
+        return showWinGameLog;
+    }
+
+    public void setShowWinGameLog(boolean showWinGameLog) {
+        this.showWinGameLog = showWinGameLog;
+    }
+
+    public boolean isShowLossGameLog() {
+        return showLossGameLog;
+    }
+
+    public void setShowLossGameLog(boolean showLossGameLog) {
+        this.showLossGameLog = showLossGameLog;
     }
 }
