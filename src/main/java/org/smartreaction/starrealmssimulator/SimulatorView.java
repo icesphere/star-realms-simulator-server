@@ -44,6 +44,8 @@ public class SimulatorView implements Serializable {
     public void startSimulation() {
         showResults = true;
         loadingResults = true;
+        showWinGameLog = false;
+        showLossGameLog = false;
     }
 
     public void runSimulation() {
@@ -107,7 +109,7 @@ public class SimulatorView implements Serializable {
     private void addGameStateErrors() {
         errorMessages = new ArrayList<>();
 
-        if (gameState.turn < 0 || gameState.turn > 100) {
+        if (gameState.turn < 1 || gameState.turn > 100) {
             errorMessages.add("Invalid turn: " + gameState.turn);
         }
 
