@@ -121,6 +121,14 @@ public class SimulatorView implements Serializable {
             errorMessages.add("Invalid Opponent authority: " + gameState.opponentAuthority);
         }
 
+        if (gameState.shuffles < 0 || gameState.shuffles > 50) {
+            errorMessages.add("Invalid shuffles: " + gameState.shuffles);
+        }
+
+        if (gameState.opponentShuffles < 0 || gameState.opponentShuffles > 50) {
+            errorMessages.add("Invalid Opponent shuffles: " + gameState.opponentShuffles);
+        }
+
         if (timesToSimulate < 100 || timesToSimulate > 10000) {
             errorMessages.add("Invalid number of times to simulate: " + timesToSimulate);
         }

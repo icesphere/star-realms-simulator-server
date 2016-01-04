@@ -20,6 +20,8 @@
                     <div class="bigTopMargin">
                         Enter the current game state, and then click submit to see your win percentage.
                         <br/><br/>
+                        Shuffles are how many times the deck has been shuffled.  This is important for several of the bots in making decisions, especially in which cards to buy.
+                        <br/><br/>
                         To enter cards just enter a list of card names separated by commas. Example: Scout, Scout, Scout, Viper, Viper, Explorer, Blob World, Blob Fighter, Battle Station, Trade Escort, Trade Bot, Trade Bot, Missile Bot
                         <br/><br/>
                         The starter cards and explorers can also be abbreviated to their first letter and capitalization and spaces are not required so the above example could also be: s, s, s, v, v, e, blobworld, blobfighter, battlestation, tradeescort, tradebot, tradebot, missilebot
@@ -98,6 +100,13 @@
                                 <f:selectItem itemLabel="Random" itemValue="R"/>
                             </p:selectOneRadio>
 
+                            <p:outputLabel value="Include Crisis - Heroes? "/>
+                            <p:selectOneRadio value="#{simulatorView.gameState.includeCrisisHeroes}" styleClass="radioSpacing">
+                                <f:selectItem itemLabel="Yes" itemValue="Y"/>
+                                <f:selectItem itemLabel="No" itemValue="N"/>
+                                <f:selectItem itemLabel="Random" itemValue="R"/>
+                            </p:selectOneRadio>
+
                             <p:outputLabel value="Include Gambits? "/>
                             <p:selectOneRadio value="#{simulatorView.gameState.includeGambits}" styleClass="radioSpacing">
                                 <f:selectItem itemLabel="Yes" itemValue="Y"/>
@@ -132,6 +141,9 @@
                             <p:outputLabel value="Authority: "/>
                             <p:inputText style="width: 50px;" value="#{simulatorView.gameState.authority}" pt:type="number"/>
 
+                            <p:outputLabel value="Shuffles:"/>
+                            <p:inputText style="width: 50px;" value="#{simulatorView.gameState.shuffles}" pt:type="number"/>
+
                             <p:outputLabel value="Hand: "/>
                             <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.hand}"/>
 
@@ -143,6 +155,9 @@
 
                             <p:outputLabel value="Bases in Play: "/>
                             <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.basesInPlay}"/>
+
+                            <p:outputLabel value="Heroes in Play: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.heroesInPlay}"/>
 
                             <p:outputLabel value="Gambits: "/>
                             <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.gambits}"/>
@@ -171,6 +186,9 @@
                             <p:outputLabel value="Authority: "/>
                             <p:inputText style="width: 50px;" value="#{simulatorView.gameState.opponentAuthority}" pt:type="number"/>
 
+                            <p:outputLabel value="Shuffles:"/>
+                            <p:inputText style="width: 50px;" value="#{simulatorView.gameState.opponentShuffles}" pt:type="number"/>
+
                             <p:outputLabel value="Hand and Deck: "/>
                             <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentHandAndDeck}"/>
 
@@ -179,6 +197,9 @@
 
                             <p:outputLabel value="Bases in Play: "/>
                             <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentBasesInPlay}"/>
+
+                            <p:outputLabel value="Heroes in Play: "/>
+                            <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentHeroesInPlay}"/>
 
                             <p:outputLabel value="Gambits: "/>
                             <p:inputTextarea cols="40" rows="3" value="#{simulatorView.gameState.opponentGambits}"/>
