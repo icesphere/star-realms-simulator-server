@@ -72,6 +72,20 @@
                                 <f:selectItem itemLabel="Random" itemValue="R"/>
                             </p:selectOneRadio>
 
+                            <p:outputLabel value="Include Base Set? "/>
+                            <p:selectOneRadio value="#{simulatorView.gameState.includeBaseSet}" styleClass="radioSpacing">
+                                <f:selectItem itemLabel="Yes" itemValue="Y"/>
+                                <f:selectItem itemLabel="No" itemValue="N"/>
+                                <f:selectItem itemLabel="Random" itemValue="R"/>
+                            </p:selectOneRadio>
+
+                            <p:outputLabel value="Include Colony Wars? "/>
+                            <p:selectOneRadio value="#{simulatorView.gameState.includeColonyWars}" styleClass="radioSpacing">
+                                <f:selectItem itemLabel="Yes" itemValue="Y"/>
+                                <f:selectItem itemLabel="No" itemValue="N"/>
+                                <f:selectItem itemLabel="Random" itemValue="R"/>
+                            </p:selectOneRadio>
+
                             <p:outputLabel value="Include Year One Promos? "/>
                             <p:selectOneRadio value="#{simulatorView.gameState.includeYearOnePromos}" styleClass="radioSpacing">
                                 <f:selectItem itemLabel="Yes" itemValue="Y"/>

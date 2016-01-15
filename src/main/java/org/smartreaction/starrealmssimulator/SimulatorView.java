@@ -109,6 +109,10 @@ public class SimulatorView implements Serializable {
     private void addGameStateErrors() {
         errorMessages = new ArrayList<>();
 
+        if (!gameState.includeBaseSet.equals("Y") && !gameState.includeColonyWars.equals("Y")) {
+            errorMessages.add("You must include either Base Set or Colony Wars");
+        }
+
         if (gameState.turn < 1 || gameState.turn > 100) {
             errorMessages.add("Invalid turn: " + gameState.turn);
         }
