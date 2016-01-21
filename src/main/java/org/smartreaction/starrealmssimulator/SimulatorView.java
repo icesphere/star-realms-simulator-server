@@ -2,10 +2,7 @@ package org.smartreaction.starrealmssimulator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.chart.*;
-import starrealmssimulator.model.Card;
-import starrealmssimulator.model.Gambit;
-import starrealmssimulator.model.GameState;
-import starrealmssimulator.model.SimulationResults;
+import starrealmssimulator.model.*;
 import starrealmssimulator.service.GameService;
 
 import javax.faces.bean.ManagedBean;
@@ -41,11 +38,38 @@ public class SimulatorView implements Serializable {
 
     private boolean showLossGameLog;
 
+    private int timesToSimulateBuys = 500;
+
+    private boolean simulatingBuys;
+
+    Map<Card, CardToBuySimulationResults> buyCardResults;
+
     public void startSimulation() {
+        simulatingBuys = false;
         showResults = true;
         loadingResults = true;
         showWinGameLog = false;
         showLossGameLog = false;
+    }
+
+    public void startBuySimulation() {
+        simulatingBuys = true;
+        showResults = true;
+        loadingResults = true;
+        showWinGameLog = false;
+        showLossGameLog = false;
+    }
+
+    public void runBuySimulation() {
+        addGameStateErrors();
+
+        showErrors = !errorMessages.isEmpty();
+
+        if (!showErrors) {
+            buyCardResults = gameService.simulateBestCardToBuy(gameState, timesToSimulateBuys);
+        }
+
+        loadingResults = false;
     }
 
     public void runSimulation() {
@@ -133,8 +157,20 @@ public class SimulatorView implements Serializable {
             errorMessages.add("Invalid Opponent shuffles: " + gameState.opponentShuffles);
         }
 
-        if (timesToSimulate < 100 || timesToSimulate > 10000) {
-            errorMessages.add("Invalid number of times to simulate: " + timesToSimulate);
+        if (simulatingBuys) {
+            if (gameState.currentPlayer.equals("R")) {
+                errorMessages.add("Is it your turn can't be random when simulating buys");
+            }
+            if (gameState.tradeRow.trim().isEmpty()) {
+                errorMessages.add("You need to specify cards in trade row when simulating buys");
+            }
+            if (timesToSimulateBuys < 100 || timesToSimulateBuys > 2000) {
+                errorMessages.add("Invalid number of times to simulate buys: " + timesToSimulate);
+            }
+        } else {
+            if (timesToSimulate < 100 || timesToSimulate > 10000) {
+                errorMessages.add("Invalid number of times to simulate: " + timesToSimulate);
+            }
         }
 
         addErrorMessagesForCardNames(gameState.tradeRow, "Trade Row");
@@ -261,5 +297,29 @@ public class SimulatorView implements Serializable {
 
     public void setShowLossGameLog(boolean showLossGameLog) {
         this.showLossGameLog = showLossGameLog;
+    }
+
+    public int getTimesToSimulateBuys() {
+        return timesToSimulateBuys;
+    }
+
+    public void setTimesToSimulateBuys(int timesToSimulateBuys) {
+        this.timesToSimulateBuys = timesToSimulateBuys;
+    }
+
+    public Map<Card, CardToBuySimulationResults> getBuyCardResults() {
+        return buyCardResults;
+    }
+
+    public void setBuyCardResults(Map<Card, CardToBuySimulationResults> buyCardResults) {
+        this.buyCardResults = buyCardResults;
+    }
+
+    public boolean isSimulatingBuys() {
+        return simulatingBuys;
+    }
+
+    public void setSimulatingBuys(boolean simulatingBuys) {
+        this.simulatingBuys = simulatingBuys;
     }
 }

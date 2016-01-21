@@ -9,7 +9,8 @@
     <ui:define name="content">
         <h:form id="simulatorForm">
 
-            <p:remoteCommand name="runSimulation" actionListener="#{simulatorView.runSimulation}" process="simulatorForm" update="submitButton results"/>
+            <p:remoteCommand name="runSimulation" actionListener="#{simulatorView.runSimulation}" process="simulatorForm" update="submitSection results"/>
+            <p:remoteCommand name="runBuySimulation" actionListener="#{simulatorView.runBuySimulation()}" process="simulatorForm" update="submitSection results"/>
 
             <h:panelGroup id="simulatorPage" layout="block" styleClass="simulatorPage">
 
@@ -18,7 +19,9 @@
                 <h:panelGroup id="instructions" layout="block" styleClass="bigTopMargin">
                     <h3>Instructions</h3>
                     <div class="bigTopMargin">
-                        Enter the current game state, and then click submit to see your win percentage.
+                        Enter the current game state, and then click submit to either simulate the winner, or to simulate win percentage for buys.
+                        <br/><br/>
+                        When simulating the best card to buy, the trade row cannot be left blank, and you cannot have the first player be random.
                         <br/><br/>
                         Shuffles are how many times the deck has been shuffled.  This is important for several of the bots in making decisions, especially in which cards to buy.
                         <br/><br/>
@@ -29,6 +32,8 @@
                         Several common terms (battle, blob, defense, federation, fighter, imperial, mech, ship, station, trade/trading, world) can also be abbreviated to one letter, so the above example could also be: s, s, s, v, v, e, bw, bf, bs, tescort, tb, tb, missileb
                         <br/><br/>
                         You can also use multipliers, so the above example could also be: s*3, v*2, e, bw, bf, bs, tescort, tb*2, missileb
+                        <br/><br/>
+                        Sometimes it is hard to remember what can be abbreviated, or what the abbreviations stand for, so you can also use the first three letters of each word, so the above could also be: sco*3, vip*2, exp, blowor, blofig, batsta, traesc, trabot*2, misbot
                         <br/><br/>
                         If the trade row is left blank it will randomly draw 5 cards for the trade row.
                         <br/><br/>
@@ -180,7 +185,7 @@
 
                     </div>
 
-                    <div class="bigTopMargin">
+                    <div class="bigTopMargin" style="padding-bottom: 30px;">
                         <h3>Opponent Info</h3>
 
                         <h:panelGrid styleClass="bigTopMargin" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
@@ -222,29 +227,9 @@
 
                     </div>
 
-                    <div style="padding-top: 30px;">
-
-                        <h:panelGrid columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
-
-                            <h:outputText value="Number of times to simulate: "/>
-                            <p:selectOneMenu value="#{simulatorView.timesToSimulate}">
-                                <f:selectItem itemLabel="1,000" itemValue="1000"/>
-                                <f:selectItem itemLabel="2,000" itemValue="2000"/>
-                                <f:selectItem itemLabel="5,000" itemValue="5000"/>
-                                <f:selectItem itemLabel="10,000" itemValue="10000"/>
-                            </p:selectOneMenu>
-
-                        </h:panelGrid>
-
-                        <h:panelGroup id="submitButton" layout="block">
-                            <p:commandButton rendered="#{!simulatorView.loadingResults}" process="@this" update="submitButton results" onsuccess="runSimulation()" style="margin-top: 20px;" value="Submit" actionListener="#{simulatorView.startSimulation}"/>
-                        </h:panelGroup>
-
-                    </div>
-
                 </h:panelGroup>
 
-                <h:panelGroup id="results" layout="block">
+                <h:panelGroup id="results" layout="block" style="padding-bottom: 20px;">
                     <h:panelGroup layout="block" rendered="#{simulatorView.showResults}" styleClass="bigTopMargin">
 
                         <h:panelGroup layout="block" rendered="#{simulatorView.loadingResults}">
@@ -269,53 +254,86 @@
 
                                 <h2>Results</h2>
 
-                                <h:panelGrid styleClass="bigTopMargin" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
+                                <h:panelGroup layout="block" styleClass="bigTopMargin" rendered="#{simulatorView.simulatingBuys}">
 
-                                    <p:outputLabel value="Win Percentage: "/>
-                                    <h:panelGroup>
-                                        <h:outputText value="#{simulatorView.results.winPercentage}">
-                                            <f:convertNumber pattern="##.00"/>
-                                        </h:outputText>
-                                        <h:outputText value="%"/>
-                                    </h:panelGroup>
+                                    <p:dataTable value="#{simulatorView.buyCardResults.keySet()}" var="card">
 
-                                    <p:outputLabel value="Avg # Turns: "/>
-                                    <h:outputText value="#{simulatorView.results.averageNumTurns}">
-                                        <f:convertNumber pattern="##.00"/>
-                                    </h:outputText>
+                                        <p:column headerText="Card">
+                                            <h:outputText value="#{card.name}"/>
+                                        </p:column>
 
-                                </h:panelGrid>
+                                        <p:column headerText="able to acquire this turn">
+                                            <h:outputText value="#{simulatorView.buyCardResults[card].ableToBuyFirstTurnPercentage}">
+                                                <f:convertNumber pattern="##0.00"/>
+                                            </h:outputText>
+                                            <h:outputText value="%"/>
+                                        </p:column>
 
-                                <div style="padding-top: 20px;">
-                                    <p:chart type="line" model="#{simulatorView.authorityChart}"/>
-                                </div>
+                                        <p:column headerText="win % when acquired this turn">
+                                            <h:outputText value="N/A" rendered="#{simulatorView.buyCardResults[card].winPercentage eq 0}"/>
+                                            <h:panelGroup rendered="#{simulatorView.buyCardResults[card].winPercentage gt 0}">
+                                                <h:outputText value="#{simulatorView.buyCardResults[card].winPercentage}">
+                                                    <f:convertNumber pattern="##0.00"/>
+                                                </h:outputText>
+                                                <h:outputText value="%"/>
+                                            </h:panelGroup>
+                                        </p:column>
 
-                                <h:panelGroup layout="block" id="winGameLogSection" style="padding-top: 20px;" rendered="#{!empty simulatorView.results.winGameLog}">
-                                    <h:panelGroup rendered="#{!simulatorView.showWinGameLog}">
-                                        <p:commandLink value="Show Win Game Log" actionListener="#{simulatorView.setShowWinGameLog(true)}" process="@this" update="winGameLogSection"/>
-                                    </h:panelGroup>
+                                    </p:dataTable>
 
-                                    <h:panelGroup rendered="#{simulatorView.showWinGameLog}">
-                                        <p:commandLink value="Hide Win Game Log" actionListener="#{simulatorView.setShowWinGameLog(false)}" process="@this" update="winGameLogSection"/>
-                                    </h:panelGroup>
-
-                                    <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showWinGameLog}">
-                                        <h:outputText value="#{simulatorView.results.winGameLog}" escape="false"/>
-                                    </h:panelGroup>
                                 </h:panelGroup>
 
-                                <h:panelGroup layout="block" id="lossGameLogSection" style="padding-top: 20px;" rendered="#{!empty simulatorView.results.lossGameLog}">
-                                    <h:panelGroup rendered="#{!simulatorView.showLossGameLog}">
-                                        <p:commandLink value="Show Loss Game Log" actionListener="#{simulatorView.setShowLossGameLog(true)}" process="@this" update="lossGameLogSection"/>
+                                <h:panelGroup layout="block" styleClass="bigTopMargin" rendered="#{!simulatorView.simulatingBuys}">
+
+                                    <h:panelGrid columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
+
+                                        <p:outputLabel value="Win Percentage: "/>
+                                        <h:panelGroup>
+                                            <h:outputText value="#{simulatorView.results.winPercentage}">
+                                                <f:convertNumber pattern="##0.00"/>
+                                            </h:outputText>
+                                            <h:outputText value="%"/>
+                                        </h:panelGroup>
+
+                                        <p:outputLabel value="Avg # Turns: "/>
+                                        <h:outputText value="#{simulatorView.results.averageNumTurns}">
+                                            <f:convertNumber pattern="##0.00"/>
+                                        </h:outputText>
+
+                                    </h:panelGrid>
+
+                                    <div style="padding-top: 20px;">
+                                        <p:chart type="line" model="#{simulatorView.authorityChart}"/>
+                                    </div>
+
+                                    <h:panelGroup layout="block" id="winGameLogSection" style="padding-top: 20px;" rendered="#{!empty simulatorView.results.winGameLog}">
+                                        <h:panelGroup rendered="#{!simulatorView.showWinGameLog}">
+                                            <p:commandLink value="Show Win Game Log" actionListener="#{simulatorView.setShowWinGameLog(true)}" process="@this" update="winGameLogSection"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup rendered="#{simulatorView.showWinGameLog}">
+                                            <p:commandLink value="Hide Win Game Log" actionListener="#{simulatorView.setShowWinGameLog(false)}" process="@this" update="winGameLogSection"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showWinGameLog}">
+                                            <h:outputText value="#{simulatorView.results.winGameLog}" escape="false"/>
+                                        </h:panelGroup>
                                     </h:panelGroup>
 
-                                    <h:panelGroup rendered="#{simulatorView.showLossGameLog}">
-                                        <p:commandLink value="Hide Loss Game Log" actionListener="#{simulatorView.setShowLossGameLog(false)}" process="@this" update="lossGameLogSection"/>
+                                    <h:panelGroup layout="block" id="lossGameLogSection" style="padding-top: 20px;" rendered="#{!empty simulatorView.results.lossGameLog}">
+                                        <h:panelGroup rendered="#{!simulatorView.showLossGameLog}">
+                                            <p:commandLink value="Show Loss Game Log" actionListener="#{simulatorView.setShowLossGameLog(true)}" process="@this" update="lossGameLogSection"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup rendered="#{simulatorView.showLossGameLog}">
+                                            <p:commandLink value="Hide Loss Game Log" actionListener="#{simulatorView.setShowLossGameLog(false)}" process="@this" update="lossGameLogSection"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showLossGameLog}">
+                                            <h:outputText value="#{simulatorView.results.lossGameLog}" escape="false"/>
+                                        </h:panelGroup>
                                     </h:panelGroup>
 
-                                    <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showLossGameLog}">
-                                        <h:outputText value="#{simulatorView.results.lossGameLog}" escape="false"/>
-                                    </h:panelGroup>
                                 </h:panelGroup>
 
                             </h:panelGroup>
@@ -323,6 +341,56 @@
                         </h:panelGroup>
 
                     </h:panelGroup>
+                </h:panelGroup>
+
+                <h:panelGroup id="submitSection" layout="block">
+
+                    <h:panelGroup rendered="#{!simulatorView.loadingResults}">
+
+                        <hr/>
+
+                        <h:panelGroup layout="block" id="submitSimulationSection" style="padding: 20px 0;">
+                            <h3>Simulate Winner</h3>
+
+                            <h:panelGrid style="margin-top: 15px;" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
+
+                                <h:outputText value="Number of times to simulate: "/>
+                                <p:selectOneMenu value="#{simulatorView.timesToSimulate}">
+                                    <f:selectItem itemLabel="1,000" itemValue="1000"/>
+                                    <f:selectItem itemLabel="2,000" itemValue="2000"/>
+                                    <f:selectItem itemLabel="5,000" itemValue="5000"/>
+                                    <f:selectItem itemLabel="10,000" itemValue="10000"/>
+                                </p:selectOneMenu>
+
+                            </h:panelGrid>
+
+                            <p:commandButton process="submitSimulationSection" update="submitSection results" onsuccess="runSimulation()" style="margin-top: 20px;" value="Submit" actionListener="#{simulatorView.startSimulation}"/>
+                        </h:panelGroup>
+
+                        <hr/>
+
+                        <h:panelGroup layout="block" style="padding: 20px 0;" id="submitBuySimulationSection">
+                            <h3>Simulate Best Card to Buy (for you if your turn, or for opponent if their turn)</h3>
+
+                            <h:panelGrid style="margin-top: 15px;" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
+
+                                <h:outputText value="Number of times to simulate: "/>
+                                <p:selectOneMenu value="#{simulatorView.timesToSimulateBuys}">
+                                    <f:selectItem itemLabel="250" itemValue="250"/>
+                                    <f:selectItem itemLabel="500" itemValue="500"/>
+                                    <f:selectItem itemLabel="1000" itemValue="1000"/>
+                                    <f:selectItem itemLabel="2000" itemValue="2000"/>
+                                </p:selectOneMenu>
+
+                            </h:panelGrid>
+
+                            <p:commandButton process="submitBuySimulationSection" update="submitSection results" onsuccess="runBuySimulation()" style="margin-top: 15px;" value="Submit" actionListener="#{simulatorView.startBuySimulation}"/>
+                        </h:panelGroup>
+
+                        <hr/>
+
+                    </h:panelGroup>
+
                 </h:panelGroup>
 
             </h:panelGroup>
