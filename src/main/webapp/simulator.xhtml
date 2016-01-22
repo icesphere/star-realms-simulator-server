@@ -263,15 +263,18 @@
                                         </p:column>
 
                                         <p:column headerText="able to acquire this turn">
-                                            <h:outputText value="#{simulatorView.buyCardResults[card].ableToBuyFirstTurnPercentage}">
-                                                <f:convertNumber pattern="##0.00"/>
-                                            </h:outputText>
-                                            <h:outputText value="%"/>
+                                            <h:outputText value="N/A" rendered="#{card.name eq 'Do Not Buy Card'}"/>
+                                            <h:panelGroup rendered="#{card.name ne 'Do Not Buy Card'}">
+                                                <h:outputText value="#{simulatorView.buyCardResults[card].ableToBuyFirstTurnPercentage}">
+                                                    <f:convertNumber pattern="##0.00"/>
+                                                </h:outputText>
+                                                <h:outputText value="%"/>
+                                            </h:panelGroup>
                                         </p:column>
 
                                         <p:column headerText="win % when acquired this turn">
-                                            <h:outputText value="N/A" rendered="#{simulatorView.buyCardResults[card].winPercentage eq 0}"/>
-                                            <h:panelGroup rendered="#{simulatorView.buyCardResults[card].winPercentage gt 0}">
+                                            <h:outputText value="N/A" rendered="#{simulatorView.buyCardResults[card].winPercentage eq 0 and card.name ne 'Do Not Buy Card'}"/>
+                                            <h:panelGroup rendered="#{simulatorView.buyCardResults[card].winPercentage gt 0 or card.name eq 'Do Not Buy Card'}">
                                                 <h:outputText value="#{simulatorView.buyCardResults[card].winPercentage}">
                                                     <f:convertNumber pattern="##0.00"/>
                                                 </h:outputText>
