@@ -3,6 +3,11 @@
     <output-path>$PROJECT_DIR$/../jetty9/webapps</output-path>
     <root id="archive" name="star-realms-simulator-server.war">
       <element id="artifact" artifact-name="star-realms-simulator:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="lib" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

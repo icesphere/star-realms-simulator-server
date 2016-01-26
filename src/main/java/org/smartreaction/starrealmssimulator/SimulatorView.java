@@ -78,7 +78,7 @@ public class SimulatorView implements Serializable {
         showErrors = !errorMessages.isEmpty();
 
         if (!showErrors) {
-            results = gameService.simulateGameToEnd(gameState, timesToSimulate);
+            results = gameService.simulateGameToEnd(new GameStateGame(gameState, gameService), timesToSimulate);
             authorityChart = new LineChartModel();
             authorityChart.setTitle("Average Authority By # Hands Played");
             authorityChart.setLegendPosition("e");
@@ -160,9 +160,6 @@ public class SimulatorView implements Serializable {
         if (simulatingBuys) {
             if (gameState.currentPlayer.equals("R")) {
                 errorMessages.add("Is it your turn can't be random when simulating buys");
-            }
-            if (gameState.tradeRow.trim().isEmpty()) {
-                errorMessages.add("You need to specify cards in trade row when simulating buys");
             }
             if (timesToSimulateBuys < 100 || timesToSimulateBuys > 2000) {
                 errorMessages.add("Invalid number of times to simulate buys: " + timesToSimulate);

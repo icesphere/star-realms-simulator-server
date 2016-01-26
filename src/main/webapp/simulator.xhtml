@@ -21,7 +21,7 @@
                     <div class="bigTopMargin">
                         Enter the current game state, and then click submit to either simulate the winner, or to simulate win percentage for buys.
                         <br/><br/>
-                        When simulating the best card to buy, the trade row cannot be left blank, and you cannot have the first player be random.
+                        When simulating the best card to buy, you cannot have the first player be random.  If you leave the trade row blank, it will be drawn randomly.
                         <br/><br/>
                         Shuffles are how many times the deck has been shuffled.  This is important for several of the bots in making decisions, especially in which cards to buy.
                         <br/><br/>
@@ -153,6 +153,7 @@
                                 <f:selectItem itemLabel="Expensive Bot" itemValue="ExpensiveBot"/>
                                 <f:selectItem itemLabel="Hare Bot" itemValue="HareBot"/>
                                 <f:selectItem itemLabel="Random Bot" itemValue="RandomBot"/>
+                                <f:selectItem itemLabel="Simulator Bot" itemValue="SimulatorBot"/>
                                 <f:selectItem itemLabel="Tortoise Bot" itemValue="TortoiseBot"/>
                                 <f:selectItem itemLabel="Velocity Bot" itemValue="VelocityBot"/>
                             </p:selectOneMenu>
@@ -359,6 +360,8 @@
 
                                 <h:outputText value="Number of times to simulate: "/>
                                 <p:selectOneMenu value="#{simulatorView.timesToSimulate}">
+                                    <f:selectItem itemLabel="500" itemValue="500"/>
+                                    <f:selectItem itemLabel="1,000" itemValue="1000"/>
                                     <f:selectItem itemLabel="1,000" itemValue="1000"/>
                                     <f:selectItem itemLabel="2,000" itemValue="2000"/>
                                     <f:selectItem itemLabel="5,000" itemValue="5000"/>
