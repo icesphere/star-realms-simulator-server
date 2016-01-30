@@ -161,12 +161,18 @@ public class SimulatorView implements Serializable {
             if (gameState.currentPlayer.equals("R")) {
                 errorMessages.add("Is it your turn can't be random when simulating buys");
             }
-            if (timesToSimulateBuys < 100 || timesToSimulateBuys > 2000) {
+            if (timesToSimulateBuys < 10 || timesToSimulateBuys > 2000) {
                 errorMessages.add("Invalid number of times to simulate buys: " + timesToSimulate);
             }
+            if (gameState.bot.equalsIgnoreCase("simulatorbot")) {
+                errorMessages.add("You cannot use Simulator Bot when simulating buys");
+            }
         } else {
-            if (timesToSimulate < 100 || timesToSimulate > 10000) {
+            if (timesToSimulate < 10 || timesToSimulate > 10000) {
                 errorMessages.add("Invalid number of times to simulate: " + timesToSimulate);
+            }
+            if (gameState.bot.equalsIgnoreCase("simulatorbot") && (timesToSimulate > 100)) {
+                errorMessages.add("Times to simulate can't be greater than 100 when using Simulator Bot");
             }
         }
 
