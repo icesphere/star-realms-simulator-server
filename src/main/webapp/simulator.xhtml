@@ -11,6 +11,7 @@
 
             <p:remoteCommand name="runSimulation" actionListener="#{simulatorView.runSimulation}" process="simulatorForm" update="submitSection results"/>
             <p:remoteCommand name="runBuySimulation" actionListener="#{simulatorView.runBuySimulation()}" process="simulatorForm" update="submitSection results"/>
+            <p:remoteCommand name="runBotSimulation" actionListener="#{simulatorView.runBotSimulation()}" process="simulatorForm" update="submitSection results"/>
 
             <h:panelGroup id="simulatorPage" layout="block" styleClass="simulatorPage">
 
@@ -263,7 +264,7 @@
                                             <h:outputText value="#{card.name}"/>
                                         </p:column>
 
-                                        <p:column headerText="able to acquire this turn">
+                                        <p:column headerText="Able to acquire this turn">
                                             <h:outputText value="N/A" rendered="#{card.name eq 'Do Not Buy Card'}"/>
                                             <h:panelGroup rendered="#{card.name ne 'Do Not Buy Card'}">
                                                 <h:outputText value="#{simulatorView.buyCardResults[card].ableToBuyFirstTurnPercentage}">
@@ -273,7 +274,7 @@
                                             </h:panelGroup>
                                         </p:column>
 
-                                        <p:column headerText="win % when acquired this turn">
+                                        <p:column headerText="Win % when acquired this turn">
                                             <h:outputText value="N/A" rendered="#{simulatorView.buyCardResults[card].winPercentage eq 0 and card.name ne 'Do Not Buy Card'}"/>
                                             <h:panelGroup rendered="#{simulatorView.buyCardResults[card].winPercentage gt 0 or card.name eq 'Do Not Buy Card'}">
                                                 <h:outputText value="#{simulatorView.buyCardResults[card].winPercentage}">
@@ -287,7 +288,26 @@
 
                                 </h:panelGroup>
 
-                                <h:panelGroup layout="block" styleClass="bigTopMargin" rendered="#{!simulatorView.simulatingBuys}">
+                                <h:panelGroup layout="block" styleClass="bigTopMargin" rendered="#{simulatorView.simulatingBots}">
+
+                                    <p:dataTable value="#{simulatorView.botResults.keySet()}" var="bot">
+
+                                        <p:column headerText="Bot">
+                                            <h:outputText value="#{bot}"/>
+                                        </p:column>
+
+                                        <p:column headerText="Win %">
+                                            <h:outputText value="#{simulatorView.botResults[bot]}">
+                                                <f:convertNumber pattern="##0.00"/>
+                                            </h:outputText>
+                                            <h:outputText value="%"/>
+                                        </p:column>
+
+                                    </p:dataTable>
+
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="bigTopMargin" rendered="#{!simulatorView.simulatingBuys and !simulatorView.simulatingBots}">
 
                                     <h:panelGrid columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
 
@@ -393,6 +413,26 @@
                             </h:panelGrid>
 
                             <p:commandButton process="submitBuySimulationSection" update="submitSection results" onsuccess="runBuySimulation()" style="margin-top: 15px;" value="Submit" actionListener="#{simulatorView.startBuySimulation}"/>
+                        </h:panelGroup>
+
+                        <hr/>
+
+                        <h:panelGroup layout="block" style="padding: 20px 0;" id="submitBotSimulationSection">
+                            <h3>Simulate Best Bot</h3>
+
+                            <h:panelGrid style="margin-top: 15px;" columns="2" columnClasses="boldText smallRightPadding tinyBottomPadding alignTop, tinyBottomPadding alignTop">
+
+                                <h:outputText value="Number of times to simulate: "/>
+                                <p:selectOneMenu value="#{simulatorView.timesToSimulateBots}">
+                                    <f:selectItem itemLabel="250" itemValue="250"/>
+                                    <f:selectItem itemLabel="500" itemValue="500"/>
+                                    <f:selectItem itemLabel="1000" itemValue="1000"/>
+                                    <f:selectItem itemLabel="2000" itemValue="2000"/>
+                                </p:selectOneMenu>
+
+                            </h:panelGrid>
+
+                            <p:commandButton process="submitBotSimulationSection" update="submitSection results" onsuccess="runBotSimulation()" style="margin-top: 15px;" value="Submit" actionListener="#{simulatorView.startBotSimulation}"/>
                         </h:panelGroup>
 
                         <hr/>

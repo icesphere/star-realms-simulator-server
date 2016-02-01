@@ -40,20 +40,35 @@ public class SimulatorView implements Serializable {
 
     private int timesToSimulateBuys = 500;
 
+    private int timesToSimulateBots = 500;
+
     private boolean simulatingBuys;
+
+    private boolean simulatingBots;
 
     Map<Card, CardToBuySimulationResults> buyCardResults;
 
+    Map<String, Float> botResults;
+
     public void startSimulation() {
         simulatingBuys = false;
-        showResults = true;
-        loadingResults = true;
-        showWinGameLog = false;
-        showLossGameLog = false;
+        simulatingBots = false;
+        startSimulationSetup();
     }
 
     public void startBuySimulation() {
         simulatingBuys = true;
+        simulatingBots = false;
+        startSimulationSetup();
+    }
+
+    public void startBotSimulation() {
+        simulatingBots = true;
+        simulatingBuys = false;
+        startSimulationSetup();
+    }
+
+    public void startSimulationSetup() {
         showResults = true;
         loadingResults = true;
         showWinGameLog = false;
@@ -67,6 +82,18 @@ public class SimulatorView implements Serializable {
 
         if (!showErrors) {
             buyCardResults = gameService.simulateBestCardToBuy(gameState, timesToSimulateBuys);
+        }
+
+        loadingResults = false;
+    }
+
+    public void runBotSimulation() {
+        addGameStateErrors();
+
+        showErrors = !errorMessages.isEmpty();
+
+        if (!showErrors) {
+            botResults = gameService.simulateBestBot(gameState, timesToSimulateBots);
         }
 
         loadingResults = false;
@@ -166,6 +193,13 @@ public class SimulatorView implements Serializable {
             }
             if (gameState.bot.equalsIgnoreCase("simulatorbot")) {
                 errorMessages.add("You cannot use Simulator Bot when simulating buys");
+            }
+        } else if (simulatingBots) {
+            if (timesToSimulateBots < 10 || timesToSimulateBots > 10000) {
+                errorMessages.add("Invalid number of times to simulate bots: " + timesToSimulateBots);
+            }
+            if (gameState.bot.equalsIgnoreCase("simulatorbot")) {
+                errorMessages.add("You cannot use Simulator Bot when simulating bots");
             }
         } else {
             if (timesToSimulate < 10 || timesToSimulate > 10000) {
@@ -324,5 +358,29 @@ public class SimulatorView implements Serializable {
 
     public void setSimulatingBuys(boolean simulatingBuys) {
         this.simulatingBuys = simulatingBuys;
+    }
+
+    public boolean isSimulatingBots() {
+        return simulatingBots;
+    }
+
+    public void setSimulatingBots(boolean simulatingBots) {
+        this.simulatingBots = simulatingBots;
+    }
+
+    public int getTimesToSimulateBots() {
+        return timesToSimulateBots;
+    }
+
+    public void setTimesToSimulateBots(int timesToSimulateBots) {
+        this.timesToSimulateBots = timesToSimulateBots;
+    }
+
+    public Map<String, Float> getBotResults() {
+        return botResults;
+    }
+
+    public void setBotResults(Map<String, Float> botResults) {
+        this.botResults = botResults;
     }
 }
