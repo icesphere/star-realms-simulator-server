@@ -48,6 +48,8 @@
                         <br/>
                         Defense Bot - Favors lifegain/bases
                         <br/>
+                        Economy Bot - Favors economy/defense
+                        <br/>
                         End Game Bot - Does not buy any cards and always scraps for benefit
                         <br/>
                         ExpensiveBot - Always buys the most expensive card
@@ -150,6 +152,7 @@
                             <p:selectOneMenu value="#{simulatorView.gameState.bot}">
                                 <f:selectItem itemLabel="Attack Bot" itemValue="AttackBot"/>
                                 <f:selectItem itemLabel="Defense Bot" itemValue="DefenseAndBaseBot"/>
+                                <f:selectItem itemLabel="Economy Bot" itemValue="EconomyBot"/>
                                 <f:selectItem itemLabel="End Game Bot" itemValue="EndGameBot"/>
                                 <f:selectItem itemLabel="Expensive Bot" itemValue="ExpensiveBot"/>
                                 <f:selectItem itemLabel="Hare Bot" itemValue="HareBot"/>
@@ -380,9 +383,6 @@
 
                                 <h:outputText value="Number of times to simulate: "/>
                                 <p:selectOneMenu value="#{simulatorView.timesToSimulate}">
-                                    <!--<f:selectItem itemLabel="50" itemValue="50"/>-->
-                                    <!--<f:selectItem itemLabel="100" itemValue="100"/>-->
-                                    <!--<f:selectItem itemLabel="250" itemValue="250"/>-->
                                     <f:selectItem itemLabel="500" itemValue="500"/>
                                     <f:selectItem itemLabel="1,000" itemValue="1000"/>
                                     <f:selectItem itemLabel="2,000" itemValue="2000"/>
