@@ -334,20 +334,41 @@
                                         <p:chart type="line" model="#{simulatorView.authorityChart}"/>
                                     </div>
 
-                                    <h:panelGroup layout="block" id="winDifferentialByCardsInDeckAtEndOfGameSection" style="padding-top: 20px;">
-                                        <h:panelGroup rendered="#{!simulatorView.showWinDifferentialByCardsAtEndOfGame}">
-                                            <p:commandLink value="Show Win Differential By Cards In Deck At End of Game" actionListener="#{simulatorView.setShowWinDifferentialByCardsAtEndOfGame(true)}" process="@this" update="winDifferentialByCardsInDeckAtEndOfGameSection"/>
+                                    <h:panelGroup layout="block" id="playerWinDifferentialByCardsInDeckAtEndOfGameSection" style="padding-top: 20px;">
+                                        <h:panelGroup rendered="#{!simulatorView.showPlayerWinDifferentialByCardsAtEndOfGame}">
+                                            <p:commandLink value="Show Player Win Differential By Cards In Deck At End of Game" actionListener="#{simulatorView.setShowPlayerWinDifferentialByCardsAtEndOfGame(true)}" process="@this" update="playerWinDifferentialByCardsInDeckAtEndOfGameSection"/>
                                         </h:panelGroup>
 
-                                        <h:panelGroup rendered="#{simulatorView.showWinDifferentialByCardsAtEndOfGame}">
-                                            <p:commandLink value="Hide Win Differential By Cards In Deck At End of Game" actionListener="#{simulatorView.setShowWinDifferentialByCardsAtEndOfGame(false)}" process="@this" update="winDifferentialByCardsInDeckAtEndOfGameSection"/>
+                                        <h:panelGroup rendered="#{simulatorView.showPlayerWinDifferentialByCardsAtEndOfGame}">
+                                            <p:commandLink value="Hide Player Win Differential By Cards In Deck At End of Game" actionListener="#{simulatorView.setShowPlayerWinDifferentialByCardsAtEndOfGame(false)}" process="@this" update="playerWinDifferentialByCardsInDeckAtEndOfGameSection"/>
                                         </h:panelGroup>
 
-                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showWinDifferentialByCardsAtEndOfGame}">
+                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showPlayerWinDifferentialByCardsAtEndOfGame}">
 
-                                            <ui:repeat value="#{simulatorView.results.winDifferentialByCardsAtEndOfGame.keySet().toArray()}" var="cardName">
+                                            <ui:repeat value="#{simulatorView.results.playerWinDifferentialByCardsAtEndOfGame.keySet().toArray()}" var="cardName">
                                                 <div>
-                                                    #{cardName}: #{simulatorView.results.winDifferentialByCardsAtEndOfGame[cardName]}
+                                                    #{cardName}: #{simulatorView.results.playerWinDifferentialByCardsAtEndOfGame[cardName]}
+                                                </div>
+                                            </ui:repeat>
+
+                                        </h:panelGroup>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGroup layout="block" id="opponentWinDifferentialByCardsInDeckAtEndOfGameSection" style="padding-top: 20px;">
+                                        <h:panelGroup rendered="#{!simulatorView.showOpponentWinDifferentialByCardsAtEndOfGame}">
+                                            <p:commandLink value="Show Opponent Win Differential By Cards In Deck At End of Game" actionListener="#{simulatorView.setShowOpponentWinDifferentialByCardsAtEndOfGame(true)}" process="@this" update="opponentWinDifferentialByCardsInDeckAtEndOfGameSection"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup rendered="#{simulatorView.showOpponentWinDifferentialByCardsAtEndOfGame}">
+                                            <p:commandLink value="Hide Opponent Win Differential By Cards In Deck At End of Game" actionListener="#{simulatorView.setShowOpponentWinDifferentialByCardsAtEndOfGame(false)}" process="@this" update="opponentWinDifferentialByCardsInDeckAtEndOfGameSection"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showOpponentWinDifferentialByCardsAtEndOfGame}">
+
+                                            <ui:repeat value="#{simulatorView.results.opponentWinDifferentialByCardsAtEndOfGame.keySet().toArray()}" var="cardName">
+                                                <div>
+                                                    #{cardName}: #{simulatorView.results.opponentWinDifferentialByCardsAtEndOfGame[cardName]}
                                                 </div>
                                             </ui:repeat>
 

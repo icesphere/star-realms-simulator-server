@@ -39,7 +39,8 @@ public class SimulatorView implements Serializable {
 
     private boolean showLossGameLog;
 
-    private boolean showWinDifferentialByCardsAtEndOfGame;
+    private boolean showPlayerWinDifferentialByCardsAtEndOfGame;
+    private boolean showOpponentWinDifferentialByCardsAtEndOfGame;
 
     private int timesToSimulateBuys = 500;
 
@@ -82,7 +83,8 @@ public class SimulatorView implements Serializable {
         loadingResults = true;
         showWinGameLog = false;
         showLossGameLog = false;
-        showWinDifferentialByCardsAtEndOfGame = false;
+        showPlayerWinDifferentialByCardsAtEndOfGame = false;
+        showOpponentWinDifferentialByCardsAtEndOfGame = false;
     }
 
     public void runBuySimulation() {
@@ -346,12 +348,20 @@ public class SimulatorView implements Serializable {
         this.showLossGameLog = showLossGameLog;
     }
 
-    public boolean isShowWinDifferentialByCardsAtEndOfGame() {
-        return showWinDifferentialByCardsAtEndOfGame;
+    public boolean isShowPlayerWinDifferentialByCardsAtEndOfGame() {
+        return showPlayerWinDifferentialByCardsAtEndOfGame;
     }
 
-    public void setShowWinDifferentialByCardsAtEndOfGame(boolean showWinDifferentialByCardsAtEndOfGame) {
-        this.showWinDifferentialByCardsAtEndOfGame = showWinDifferentialByCardsAtEndOfGame;
+    public void setShowPlayerWinDifferentialByCardsAtEndOfGame(boolean showPlayerWinDifferentialByCardsAtEndOfGame) {
+        this.showPlayerWinDifferentialByCardsAtEndOfGame = showPlayerWinDifferentialByCardsAtEndOfGame;
+    }
+
+    public boolean isShowOpponentWinDifferentialByCardsAtEndOfGame() {
+        return showOpponentWinDifferentialByCardsAtEndOfGame;
+    }
+
+    public void setShowOpponentWinDifferentialByCardsAtEndOfGame(boolean showOpponentWinDifferentialByCardsAtEndOfGame) {
+        this.showOpponentWinDifferentialByCardsAtEndOfGame = showOpponentWinDifferentialByCardsAtEndOfGame;
     }
 
     public int getTimesToSimulateBuys() {
