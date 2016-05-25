@@ -5,6 +5,7 @@ import org.primefaces.model.chart.*;
 import starrealmssimulator.model.*;
 import starrealmssimulator.service.GameService;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
@@ -38,6 +39,8 @@ public class SimulatorView implements Serializable {
 
     private boolean showLossGameLog;
 
+    private boolean showWinDifferentialByCardsAtEndOfGame;
+
     private int timesToSimulateBuys = 500;
 
     private int timesToSimulateBots = 500;
@@ -49,6 +52,12 @@ public class SimulatorView implements Serializable {
     Map<Card, CardToBuySimulationResults> buyCardResults;
 
     Map<String, Float> botResults;
+
+    @PostConstruct
+    public void setup() {
+        gameState.setBot("VelocityBot");
+        gameState.setOpponentBot("VelocityBot");
+    }
 
     public void startSimulation() {
         simulatingBuys = false;
@@ -73,6 +82,7 @@ public class SimulatorView implements Serializable {
         loadingResults = true;
         showWinGameLog = false;
         showLossGameLog = false;
+        showWinDifferentialByCardsAtEndOfGame = false;
     }
 
     public void runBuySimulation() {
@@ -334,6 +344,14 @@ public class SimulatorView implements Serializable {
 
     public void setShowLossGameLog(boolean showLossGameLog) {
         this.showLossGameLog = showLossGameLog;
+    }
+
+    public boolean isShowWinDifferentialByCardsAtEndOfGame() {
+        return showWinDifferentialByCardsAtEndOfGame;
+    }
+
+    public void setShowWinDifferentialByCardsAtEndOfGame(boolean showWinDifferentialByCardsAtEndOfGame) {
+        this.showWinDifferentialByCardsAtEndOfGame = showWinDifferentialByCardsAtEndOfGame;
     }
 
     public int getTimesToSimulateBuys() {

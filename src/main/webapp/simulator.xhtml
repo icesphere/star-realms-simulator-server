@@ -334,6 +334,27 @@
                                         <p:chart type="line" model="#{simulatorView.authorityChart}"/>
                                     </div>
 
+                                    <h:panelGroup layout="block" id="winDifferentialByCardsInDeckAtEndOfGameSection" style="padding-top: 20px;">
+                                        <h:panelGroup rendered="#{!simulatorView.showWinDifferentialByCardsAtEndOfGame}">
+                                            <p:commandLink value="Show Win Differential By Cards In Deck At End of Game" actionListener="#{simulatorView.setShowWinDifferentialByCardsAtEndOfGame(true)}" process="@this" update="winDifferentialByCardsInDeckAtEndOfGameSection"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup rendered="#{simulatorView.showWinDifferentialByCardsAtEndOfGame}">
+                                            <p:commandLink value="Hide Win Differential By Cards In Deck At End of Game" actionListener="#{simulatorView.setShowWinDifferentialByCardsAtEndOfGame(false)}" process="@this" update="winDifferentialByCardsInDeckAtEndOfGameSection"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showWinDifferentialByCardsAtEndOfGame}">
+
+                                            <ui:repeat value="#{simulatorView.results.winDifferentialByCardsAtEndOfGame.keySet().toArray()}" var="cardName">
+                                                <div>
+                                                    #{cardName}: #{simulatorView.results.winDifferentialByCardsAtEndOfGame[cardName]}
+                                                </div>
+                                            </ui:repeat>
+
+                                        </h:panelGroup>
+
+                                    </h:panelGroup>
+
                                     <h:panelGroup layout="block" id="winGameLogSection" style="padding-top: 20px;" rendered="#{!empty simulatorView.results.winGameLog}">
                                         <h:panelGroup rendered="#{!simulatorView.showWinGameLog}">
                                             <p:commandLink value="Show Win Game Log" actionListener="#{simulatorView.setShowWinGameLog(true)}" process="@this" update="winGameLogSection"/>
