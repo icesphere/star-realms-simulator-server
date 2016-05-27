@@ -42,6 +42,9 @@ public class SimulatorView implements Serializable {
     private boolean showPlayerWinDifferentialByCardsAtEndOfGame;
     private boolean showOpponentWinDifferentialByCardsAtEndOfGame;
 
+    private boolean showPlayerWinPercentageByFirstDeckCard;
+    private boolean showOpponentWinPercentageByFirstDeckCard;
+
     private int timesToSimulateBuys = 500;
 
     private int timesToSimulateBots = 500;
@@ -58,6 +61,7 @@ public class SimulatorView implements Serializable {
     public void setup() {
         gameState.setBot("VelocityBot");
         gameState.setOpponentBot("VelocityBot");
+        gameState.setCurrentPlayer("R");
     }
 
     public void startSimulation() {
@@ -85,6 +89,8 @@ public class SimulatorView implements Serializable {
         showLossGameLog = false;
         showPlayerWinDifferentialByCardsAtEndOfGame = false;
         showOpponentWinDifferentialByCardsAtEndOfGame = false;
+        showPlayerWinPercentageByFirstDeckCard = false;
+        showOpponentWinPercentageByFirstDeckCard = false;
     }
 
     public void runBuySimulation() {
@@ -207,14 +213,14 @@ public class SimulatorView implements Serializable {
                 errorMessages.add("You cannot use Simulator Bot when simulating buys");
             }
         } else if (simulatingBots) {
-            if (timesToSimulateBots < 10 || timesToSimulateBots > 10000) {
+            if (timesToSimulateBots < 10 || timesToSimulateBots > 20000) {
                 errorMessages.add("Invalid number of times to simulate bots: " + timesToSimulateBots);
             }
             if (gameState.bot.equalsIgnoreCase("simulatorbot")) {
                 errorMessages.add("You cannot use Simulator Bot when simulating bots");
             }
         } else {
-            if (timesToSimulate < 10 || timesToSimulate > 10000) {
+            if (timesToSimulate < 10 || timesToSimulate > 20000) {
                 errorMessages.add("Invalid number of times to simulate: " + timesToSimulate);
             }
             if (gameState.bot.equalsIgnoreCase("simulatorbot") && (timesToSimulate > 100)) {
@@ -362,6 +368,22 @@ public class SimulatorView implements Serializable {
 
     public void setShowOpponentWinDifferentialByCardsAtEndOfGame(boolean showOpponentWinDifferentialByCardsAtEndOfGame) {
         this.showOpponentWinDifferentialByCardsAtEndOfGame = showOpponentWinDifferentialByCardsAtEndOfGame;
+    }
+
+    public boolean isShowPlayerWinPercentageByFirstDeckCard() {
+        return showPlayerWinPercentageByFirstDeckCard;
+    }
+
+    public void setShowPlayerWinPercentageByFirstDeckCard(boolean showPlayerWinPercentageByFirstDeckCard) {
+        this.showPlayerWinPercentageByFirstDeckCard = showPlayerWinPercentageByFirstDeckCard;
+    }
+
+    public boolean isShowOpponentWinPercentageByFirstDeckCard() {
+        return showOpponentWinPercentageByFirstDeckCard;
+    }
+
+    public void setShowOpponentWinPercentageByFirstDeckCard(boolean showOpponentWinPercentageByFirstDeckCard) {
+        this.showOpponentWinPercentageByFirstDeckCard = showOpponentWinPercentageByFirstDeckCard;
     }
 
     public int getTimesToSimulateBuys() {
