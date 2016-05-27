@@ -428,6 +428,58 @@
 
                                     </h:panelGroup>
 
+                                    <h:panelGroup layout="block" id="playerWinPercentageBySecondDeckCard" style="padding-top: 20px;">
+                                        <h:panelGroup rendered="#{!simulatorView.showPlayerWinPercentageBySecondDeckCard}">
+                                            <p:commandLink value="Show Player Win Percentage By Second Deck Card Acquired" actionListener="#{simulatorView.setShowPlayerWinPercentageBySecondDeckCard(true)}" process="@this" update="playerWinPercentageBySecondDeckCard"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup rendered="#{simulatorView.showPlayerWinPercentageBySecondDeckCard}">
+                                            <p:commandLink value="Hide Player Win Percentage By Second Deck Card Acquired" actionListener="#{simulatorView.setShowPlayerWinPercentageBySecondDeckCard(false)}" process="@this" update="playerWinPercentageBySecondDeckCard"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showPlayerWinPercentageBySecondDeckCard}">
+
+                                            <ui:repeat value="#{simulatorView.results.playerWinPercentageBySecondDeckCard.keySet().toArray()}" var="cardName">
+                                                <div>
+                                                    <h:outputText value="#{cardName}:"/>
+                                                    <h:outputText value="#{simulatorView.results.playerWinPercentageBySecondDeckCard[cardName]}" style="padding-left: 10px;">
+                                                        <f:convertNumber pattern="##0.00"/>
+                                                    </h:outputText>
+                                                    <h:outputText value="%"/>
+                                                    <h:outputText value="(#{simulatorView.results.playerTotalGamesBySecondDeckCard[cardName]} games)" style="padding-left: 15px;"/>
+                                                </div>
+                                            </ui:repeat>
+
+                                        </h:panelGroup>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGroup layout="block" id="opponentWinPercentageBySecondDeckCard" style="padding-top: 20px;">
+                                        <h:panelGroup rendered="#{!simulatorView.showOpponentWinPercentageBySecondDeckCard}">
+                                            <p:commandLink value="Show Opponent Win Percentage By Second Deck Card Acquired" actionListener="#{simulatorView.setShowOpponentWinPercentageBySecondDeckCard(true)}" process="@this" update="opponentWinPercentageBySecondDeckCard"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup rendered="#{simulatorView.showOpponentWinPercentageBySecondDeckCard}">
+                                            <p:commandLink value="Hide Opponent Win Percentage By Second Deck Card Acquired" actionListener="#{simulatorView.setShowOpponentWinPercentageBySecondDeckCard(false)}" process="@this" update="opponentWinPercentageBySecondDeckCard"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showOpponentWinPercentageBySecondDeckCard}">
+
+                                            <ui:repeat value="#{simulatorView.results.opponentWinPercentageBySecondDeckCard.keySet().toArray()}" var="cardName">
+                                                <div>
+                                                    <h:outputText value="#{cardName}:"/>
+                                                    <h:outputText value="#{simulatorView.results.opponentWinPercentageBySecondDeckCard[cardName]}" style="padding-left: 10px;">
+                                                        <f:convertNumber pattern="##0.00"/>
+                                                    </h:outputText>
+                                                    <h:outputText value="%"/>
+                                                    <h:outputText value="(#{simulatorView.results.opponentTotalGamesBySecondDeckCard[cardName]} games)" style="padding-left: 15px;"/>
+                                                </div>
+                                            </ui:repeat>
+
+                                        </h:panelGroup>
+
+                                    </h:panelGroup>
+
                                     <h:panelGroup layout="block" id="winGameLogSection" style="padding-top: 20px;" rendered="#{!empty simulatorView.results.winGameLog}">
                                         <h:panelGroup rendered="#{!simulatorView.showWinGameLog}">
                                             <p:commandLink value="Show Win Game Log" actionListener="#{simulatorView.setShowWinGameLog(true)}" process="@this" update="winGameLogSection"/>
