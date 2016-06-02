@@ -48,6 +48,9 @@ public class SimulatorView implements Serializable {
     private boolean showPlayerWinPercentageBySecondDeckCard;
     private boolean showOpponentWinPercentageBySecondDeckCard;
 
+    private boolean showPlayerWinPercentageByScoutsInFirstTwoHands;
+    private boolean showOpponentWinPercentageByScoutsInFirstTwoHands;
+
     private int timesToSimulateBuys = 500;
 
     private int timesToSimulateBots = 500;
@@ -96,6 +99,8 @@ public class SimulatorView implements Serializable {
         showOpponentWinPercentageByFirstDeckCard = false;
         showPlayerWinPercentageBySecondDeckCard = false;
         showOpponentWinPercentageBySecondDeckCard = false;
+        showPlayerWinPercentageByScoutsInFirstTwoHands = false;
+        showOpponentWinPercentageByScoutsInFirstTwoHands = false;
     }
 
     public void runBuySimulation() {
@@ -405,6 +410,22 @@ public class SimulatorView implements Serializable {
 
     public void setShowOpponentWinPercentageBySecondDeckCard(boolean showOpponentWinPercentageBySecondDeckCard) {
         this.showOpponentWinPercentageBySecondDeckCard = showOpponentWinPercentageBySecondDeckCard;
+    }
+
+    public boolean isShowPlayerWinPercentageByScoutsInFirstTwoHands() {
+        return showPlayerWinPercentageByScoutsInFirstTwoHands;
+    }
+
+    public void setShowPlayerWinPercentageByScoutsInFirstTwoHands(boolean showPlayerWinPercentageByScoutsInFirstTwoHands) {
+        this.showPlayerWinPercentageByScoutsInFirstTwoHands = showPlayerWinPercentageByScoutsInFirstTwoHands;
+    }
+
+    public boolean isShowOpponentWinPercentageByScoutsInFirstTwoHands() {
+        return showOpponentWinPercentageByScoutsInFirstTwoHands;
+    }
+
+    public void setShowOpponentWinPercentageByScoutsInFirstTwoHands(boolean showOpponentWinPercentageByScoutsInFirstTwoHands) {
+        this.showOpponentWinPercentageByScoutsInFirstTwoHands = showOpponentWinPercentageByScoutsInFirstTwoHands;
     }
 
     public int getTimesToSimulateBuys() {

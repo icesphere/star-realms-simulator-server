@@ -480,6 +480,58 @@
 
                                     </h:panelGroup>
 
+                                    <h:panelGroup layout="block" id="playerWinPercentageByScoutsInFirstTwoHands" style="padding-top: 20px;">
+                                        <h:panelGroup rendered="#{!simulatorView.showPlayerWinPercentageByScoutsInFirstTwoHands}">
+                                            <p:commandLink value="Show Player Win Percentage By Nubmer Of Scouts In First Two Hands" actionListener="#{simulatorView.setShowPlayerWinPercentageByScoutsInFirstTwoHands(true)}" process="@this" update="playerWinPercentageByScoutsInFirstTwoHands"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup rendered="#{simulatorView.showPlayerWinPercentageByScoutsInFirstTwoHands}">
+                                            <p:commandLink value="Hide Player Win Percentage By Number Of Scouts In First Two Hands" actionListener="#{simulatorView.setShowPlayerWinPercentageByScoutsInFirstTwoHands(false)}" process="@this" update="playerWinPercentageByScoutsInFirstTwoHands"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showPlayerWinPercentageByScoutsInFirstTwoHands}">
+
+                                            <ui:repeat value="#{simulatorView.results.playerWinPercentageByNumScoutsFirstTwoHands.keySet().toArray()}" var="scoutSplit">
+                                                <div>
+                                                    <h:outputText value="#{scoutSplit}:"/>
+                                                    <h:outputText value="#{simulatorView.results.playerWinPercentageByNumScoutsFirstTwoHands[scoutSplit]}" style="padding-left: 10px;">
+                                                        <f:convertNumber pattern="##0.00"/>
+                                                    </h:outputText>
+                                                    <h:outputText value="%"/>
+                                                    <h:outputText value="(#{simulatorView.results.playerTotalGamesByNumScoutsFirstTwoHands[scoutSplit]} games)" style="padding-left: 15px;"/>
+                                                </div>
+                                            </ui:repeat>
+
+                                        </h:panelGroup>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGroup layout="block" id="opponentWinPercentageByScoutsInFirstTwoHands" style="padding-top: 20px;">
+                                        <h:panelGroup rendered="#{!simulatorView.showOpponentWinPercentageByScoutsInFirstTwoHands}">
+                                            <p:commandLink value="Show Opponent Win Percentage By Nubmer Of Scouts In First Two Hands" actionListener="#{simulatorView.setShowOpponentWinPercentageByScoutsInFirstTwoHands(true)}" process="@this" update="opponentWinPercentageByScoutsInFirstTwoHands"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup rendered="#{simulatorView.showOpponentWinPercentageByScoutsInFirstTwoHands}">
+                                            <p:commandLink value="Hide Opponent Win Percentage By Number Of Scouts In First Two Hands" actionListener="#{simulatorView.setShowOpponentWinPercentageByScoutsInFirstTwoHands(false)}" process="@this" update="opponentWinPercentageByScoutsInFirstTwoHands"/>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" style="padding-top: 10px;" rendered="#{simulatorView.showOpponentWinPercentageByScoutsInFirstTwoHands}">
+
+                                            <ui:repeat value="#{simulatorView.results.opponentWinPercentageByNumScoutsFirstTwoHands.keySet().toArray()}" var="scoutSplit">
+                                                <div>
+                                                    <h:outputText value="#{scoutSplit}:"/>
+                                                    <h:outputText value="#{simulatorView.results.opponentWinPercentageByNumScoutsFirstTwoHands[scoutSplit]}" style="padding-left: 10px;">
+                                                        <f:convertNumber pattern="##0.00"/>
+                                                    </h:outputText>
+                                                    <h:outputText value="%"/>
+                                                    <h:outputText value="(#{simulatorView.results.opponentTotalGamesByNumScoutsFirstTwoHands[scoutSplit]} games)" style="padding-left: 15px;"/>
+                                                </div>
+                                            </ui:repeat>
+
+                                        </h:panelGroup>
+
+                                    </h:panelGroup>
+
                                     <h:panelGroup layout="block" id="winGameLogSection" style="padding-top: 20px;" rendered="#{!empty simulatorView.results.winGameLog}">
                                         <h:panelGroup rendered="#{!simulatorView.showWinGameLog}">
                                             <p:commandLink value="Show Win Game Log" actionListener="#{simulatorView.setShowWinGameLog(true)}" process="@this" update="winGameLogSection"/>
